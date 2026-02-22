@@ -56,10 +56,28 @@ void UDemAnimInstance::OnEquippedWeaponChanged(const UDemItemData* InItemData)
 	}
 	
 	LinkAnimClassLayers(InItemData->AnimationLayer);
-	CurrentEquippedItemType = InItemData->ItemType;
+	IncomingEquippedItemType = InItemData->ItemType;
+	
+	UWorld* World = GetWorld();
+	if (IsValid(World))
+	{
+		World->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this,[this]
+		{
+			CurrentEquippedItemType = IncomingEquippedItemType;
+		}));
+	}
 }
 
 void UDemAnimInstance::OnGaitChanged(const EDemGait InCurrentGait)
 {
-	CurrentGait = InCurrentGait;
+	IncomingGait = InCurrentGait;
+	
+	UWorld* World = GetWorld();
+	if (IsValid(World))
+	{
+		World->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this,[this]
+		{
+			CurrentGait = IncomingGait;
+		}));
+	}
 }

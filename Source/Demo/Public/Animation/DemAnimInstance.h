@@ -31,8 +31,16 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Gait")
 	EDemGait CurrentGait = EDemGait::Jogging;
 	
+	UPROPERTY(BlueprintReadOnly, Category="Gait")
+	EDemGait IncomingGait = EDemGait::Jogging;
+	
+	UPROPERTY(BlueprintReadOnly, Category="Inventory")
+	EDemItemType IncomingEquippedItemType = EDemItemType::UnArmed;
+	
 	UPROPERTY(BlueprintReadOnly, Category="Inventory")
 	EDemItemType CurrentEquippedItemType = EDemItemType::UnArmed;
+	
+	int32 testint = 0;
 	
 private:
 	UFUNCTION()
